@@ -1,0 +1,50 @@
+<!--  Include headers here -->
+
+<main class="container py-4">
+
+  <!-- Toast en cas d'erreur -->
+  <!-- <div class="alert alert-danger" role="alert">
+    Une erreur s'est produite lors de l'enregistrement du niveau.
+  </div> -->
+
+  <!-- Toast en cas de succès -->
+  <!-- <div class="alert alert-success" role="alert">
+    Le niveau a été enregistré avec succès.
+  </div> -->
+
+  <h1 class="my-3">Tous les niveaux</h1>
+
+  <ul>
+
+    <!-- Level -->
+    <li>
+      <span class="badge bg-info p-3">Facile</span>
+      <a class="btn btn-outline-info py-0 px-1 ms-3 fs-6 text-decoration-none" href="#">ÉDITER</a>
+      <!-- Seules les 'method' GET & POST sont autorisées dans les FORM html. Du coup on ruse, même si les endpoints résultants ne sont pas très REST friendly -->
+      <form class="d-inline" action="#" method="POST">
+        <input class="btn btn-outline-danger py-0 px-1 ms-3 fs-6" type="submit" value="SUPPRIMER">
+      </form>
+    </li>
+
+    <!-- Level -->
+    <li>
+      <span class="badge bg-info p-3">Difficile</span>
+      <a class="btn btn-outline-info py-0 px-1 ms-3 fs-6 text-decoration-none" href="#">ÉDITER</a>
+      <form class="d-inline" action="#" method="POST">
+        <input class="btn btn-outline-danger py-0 px-1 ms-3 fs-6" type="submit" value="SUPPRIMER">
+      </form>
+    </li>
+
+  </ul>
+
+  <h1 class="my-4">Ajouter un niveau</h1>
+
+  <form class="mb-5" action="#" method="POST">
+    <label class="form-label" for="name">Nom du niveau</label>
+    <input class="form-control" type="text" name="name" id="name" required>
+    <input class="btn btn-primary mt-3" type="submit" value="Ajouter le niveau">
+  </form>
+
+</main>
+
+<!--  Include footers here -->

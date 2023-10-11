@@ -1,0 +1,21 @@
+<%- include("partials/header") %>
+
+<main class="container py-4">
+    <h1 class="my-3">Mon profil sur O'quiz</h1>
+  
+    <label class="form-label h4" for="firstname">Prénom</label>
+    <input class="form-control mb-4" type="text" disabled id="firstname" value="<%= locals.user.firstname%>">
+  
+    <label class="form-label h4" for="lastname">Nom</label>
+    <input class="form-control mb-4" type="text" disabled id="lastname" value="<%= locals.user.lastname%>">
+  
+    <label class="form-label h4" for="email">Email</label>
+    <input class="form-control mb-4" type="text" disabled id="email" value="<%= locals.user.email%>">
+ 
+    <label class="form-label h4" for="role">Role</label>
+    <input class="form-control mb-4" type="text" disabled id="role" value="<%= locals.user.role%>">
+ 
+</main>
+  
+  <%- include("partials/footer") %>
+  

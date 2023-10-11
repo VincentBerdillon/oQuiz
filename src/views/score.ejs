@@ -1,0 +1,22 @@
+<%- include("partials/header") %>
+
+<main class="container py-4">
+    
+  <h1> Pour le quiz <%=quiz.title%></h1>
+  <h2>votre score est de : <strong><%=score%>/10</strong></h2>
+  <br>
+  <p> les bonnes réponses étaient :</p>
+
+  <% for (let question of quiz.questions) { %>
+    <p class="fw-bold mb-1">
+      <%= question.description %>
+    </p>
+    <p class="fw-thin mb-1">
+     - <%= question.good_answer.description %>
+    </p>
+    <% } %>
+    <a href="/"><button class="d-block mx-auto btn btn-primary mb-4">jouer à un autre quizz</button></a>
+    
+</main>
+  
+  <%- include("partials/footer") %>

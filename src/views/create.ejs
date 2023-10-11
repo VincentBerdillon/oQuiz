@@ -1,0 +1,33 @@
+<%- include('partials/header') %>
+
+<%- include('partials/adminNav') %>
+
+
+<% if (locals.error) {%>
+  <div class="alert alert-danger" role="alert">
+    <%= error %>
+  </div>
+  <% } %>
+
+<% if (locals.validate) {%>
+  <div class="alert alert-success" role="alert">
+    <%= validate %>
+  </div>
+  <% } %>
+  
+<form action="/admin/create" method="POST">
+    <label class="form-label h4" for="name">level à créer</label>
+    <p>levels déjà existant :
+    <% levels.forEach(level => { %>
+     <span><%=level.name%></span>
+    <% }) %>
+    </p>
+    <input class="form-control mb-4" type="text" id="name" name="level" value="" placeholder="ex. Génie">
+
+    <input class="btn btn-primary d-block my-4 mx-auto" type="submit" value="Créer">
+  </form>
+
+
+</main>
+
+<%- include('partials/footer') %>

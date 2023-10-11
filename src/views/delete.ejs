@@ -1,0 +1,28 @@
+<%- include('partials/header') %>
+
+  <%- include('partials/adminNav') %>
+
+    <% if (locals.validate) {%>
+      <div class="alert alert-success" role="alert">
+        <%= validate %>
+      </div>
+      <% } %>
+
+    <form class="" method="POST" action="/admin/delete">
+      <br>
+      <p>
+          <label class="form-label h4">Level à supprimer</label>
+          <select class="form-control mb-4" name="level_id">
+            <% for( let level of levels) { %>
+              <option value="<%=level.id%>"><%=level.name%></option>
+            <% } %> 
+          </select>      
+      </p>
+      <p>
+          <button class="btn btn-primary d-block my-4 mx-auto">Supprimer</button>
+      </p>
+    </form>
+
+  </main>
+
+<%- include('partials/footer') %>

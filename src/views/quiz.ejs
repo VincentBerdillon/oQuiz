@@ -1,0 +1,72 @@
+
+<%- include("partials/header") %>
+
+
+  <main class="container py-4">
+
+    
+    <h1 class="text-center m-2">
+      <%= quiz.title%>
+    </h1>
+    
+    <h2 class="text-center m-2">
+      <%= quiz.description%>
+    </h2>
+    
+    <h2 class="small text-end">
+      <%= quiz.author.firstname%>
+      <%= quiz.author.lastname%>
+    </h2>
+    
+    <h2 class="small text-end">Date de création : <%= new Date(quiz.created_at).toLocaleDateString('fr-FR')%>
+    </h2>
+    
+    <% if (locals.error) {%>
+      <div class="alert alert-danger" role="alert">
+        <%= error %>
+      </div>
+      <% } %>
+
+      <h3>Thèmes</h3>
+      <ul class="mb-4 p-0">
+        <% for (const tag of quiz.tags) { %>
+          <li class="badge bg-primary">
+            <%= tag.name %>
+          </li>
+          <% } %>
+      </ul>
+
+    <form action="" method="POST">
+
+      <h3>Questions</h3>
+
+      <% for (let question of quiz.questions) { %>
+        <span class="badge bg-info">
+          <%= question.level.name %>
+        </span>
+        <p class="fw-bold mb-1">
+          <%= question.description %>
+        </p>
+        <div class="mb-3 ms-2">
+          <% for (const answer of question.propositions) { %>
+              <div>
+                <input type="radio" id="<%= answer.id %>" name="<%=question.id %>" value="<%= answer.id %>">
+                <label for="<%= answer.id %>">
+                  <%= answer.description %>
+                </label>
+              </div>
+          <% } %>
+        </div>
+        <p class="fst-italic text-secondary">
+          <%= question.anecdote %>
+        </p>
+        <p class="fst-italic text-secondary">
+          <%= question.wiki %>
+        </p>
+        <% } %>
+
+        <button type="submit" class="d-block mx-auto btn btn-primary mb-4">Envoyer</button>
+    </form>
+  </main>
+
+<%- include("partials/footer") %> 

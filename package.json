@@ -1,0 +1,33 @@
+{
+  "name": "s05-oquiz",
+  "version": "1.0.0",
+  "description": "Oquiz",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "db:create": "psql -U oquiz -d oquiz -f data/create_tables.sql",
+    "db:populate": "psql -U oquiz -d oquiz -f data/populate_tables.sql",
+    "db:reset": "npm run db:create && npm run db:populate"
+  },
+  "author": "oclock.io",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.8",
+    "email-validator": "^2.0.4",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "pg": "^8.8.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.25.8"
+  },
+  "devDependencies": {
+    "eslint": "^8.28.0",
+    "nodemon": "^2.0.20"
+  }
+}
