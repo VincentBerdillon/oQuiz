@@ -43,9 +43,9 @@ CREATE TABLE "question" (
   "description" text NOT NULL,
   "anecdote" text NULL,
   "wiki" text NULL,
-  "level_id" integer NOT NULL REFERENCES "level"("id"),
-  "answer_id" integer NOT NULL REFERENCES "answer"("id"),
-  "quiz_id" integer NOT NULL REFERENCES "quiz"("id"),
+  "level_id" integer NULL REFERENCES "level"("id") ON DELETE SET NULL,
+  "answer_id" integer NULL REFERENCES "answer"("id")ON DELETE SET NULL,
+  "quiz_id" integer NULL REFERENCES "quiz"("id") ON DELETE SET NULL,
   "created_at" timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "updated_at" timestamptz
 );
@@ -66,6 +66,6 @@ CREATE TABLE "quiz_has_tag" (
   UNIQUE ("quiz_id", "tag_id")
 );
 
-ALTER TABLE "answer" ADD FOREIGN KEY ("question_id") REFERENCES "question"("id") ON DELETE CASCADE;
+ALTER TABLE "answer" ADD FOREIGN KEY ("question_id") REFERENCES "question"("id");
 
 COMMIT;

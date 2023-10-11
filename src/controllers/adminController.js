@@ -79,7 +79,6 @@ const adminController = {
     try{
       const levelId = Number(req.body.levelId);
       const levelName = req.body.levelName;
-      const allLevels = await Level.findAll();
       const levelFound = await Level.findOne({
         where : {name : levelName}
       });
@@ -90,6 +89,7 @@ const adminController = {
         {name : levelName},
         {where : {id : levelId}}
       );
+      const allLevels = await Level.findAll();
       res.render("update", {allLevels, validate : `level ${levelName} mis à jour avec succès`});
     }
     catch (error) {
@@ -112,15 +112,11 @@ const adminController = {
   deleteLevel : async (req, res, next) =>{
     try {
       const levelId = req.body.level_id;
+      const levelToDelete = await Level.findByPk(levelId);
+      if(!levelToDelete){return next();}
+      await levelToDelete.destroy();
       const levels = await Level.findAll();
-      if(confirm("êtes vous sur de vouloir supprimer ce level")){
-        const levelToDelete = await Level.findByPk(levelId);
-        if(!levelToDelete){return next();}
-        await levelToDelete.destroy();
-        res.render("delete", {levels, validate : `level ${levelToDelete.name} supprimé avec succès`});
-      } else {
-        res.render("delete", {levels});
-      }
+      res.render("delete", {levels, validate : `level ${levelToDelete.name} supprimé avec succès`});
     }
     catch (error) {
       console.error(error);
