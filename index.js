@@ -8,6 +8,7 @@ const router = require("./src/router");
 const session = require("express-session");
 const cors = require("cors");
 const bodySanitizer = require("./src/middlewares/sanitizerMiddelware");
+const { rateLimit } = require('express-rate-limit');
 
 // application express
 const app = express();
@@ -34,6 +35,18 @@ app.use(session({
 // Sécurité
 app.use(cors("*"));
 app.use(bodySanitizer);
+
+import { rateLimit } from 'express-rate-limit'
+
+const limiter = rateLimit({
+	windowMs: 15 * 60 * 1000,
+	limit: 100,
+	standardHeaders: 'draft-7',
+	legacyHeaders: false,
+})
+
+// Apply the rate limiting middleware to all requests
+app.use(limiter)
 
 const userMiddleware = require("./src/middlewares/userMiddleware");
 app.use(userMiddleware);
