@@ -5,8 +5,9 @@ dotenv.config();
 // dependances
 const express = require("express");
 const router = require("./src/router");
-
 const session = require("express-session");
+const cors = require("cors");
+const bodySanitizer = require("./src/middlewares/sanitizerMiddelware");
 
 // application express
 const app = express();
@@ -29,6 +30,10 @@ app.use(session({
   saveUninitialized: true,
   cookie: { path: '/', httpOnly: true, secure: false, maxAge: null }
 }));
+
+// Sécurité
+app.use(cors("*"));
+app.use(bodySanitizer);
 
 const userMiddleware = require("./src/middlewares/userMiddleware");
 app.use(userMiddleware);

@@ -2,5 +2,4 @@
 
 ## pour vous connecter en tant qu'admin et tester le CRUD des levels :
 
-email : admin@oclock.io
-password : admin
+veuillez consulter la section informations complémentaires du dossier pro
