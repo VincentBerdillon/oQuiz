@@ -1,4 +1,6 @@
-const { Router } = require("express");
+const {
+    Router
+} = require("express");
 const mainController = require("./controllers/mainController");
 const adminController = require("./controllers/adminController");
 const adminMiddleware = require("./middlewares/adminMiddleware");
@@ -28,17 +30,17 @@ router.get('/score', userController.renderScorePage);
 
 router.get('/profile', adminController.renderProfilePage);
 router.get('/logout', adminController.logout);
-router.get('/admin', adminMiddleware,adminController.renderAdminPage);
+router.get('/admin', adminMiddleware, adminController.renderAdminPage);
 
 
-router.get('/admin/create', adminMiddleware,adminController.renderCreatePage);
-router.post('/admin/create', adminMiddleware,adminController.addLevel);
+router.get('/admin/create', adminMiddleware, adminController.renderCreatePage);
+router.post('/admin/create', adminMiddleware, adminController.addLevel);
 
-router.get('/admin/update', adminMiddleware,adminController.renderUpdatePage);
-router.post('/admin/update', adminMiddleware,adminController.updateLevel);
+router.get('/admin/update', adminMiddleware, adminController.renderUpdatePage);
+router.post('/admin/update', adminMiddleware, adminController.updateLevel);
 
-router.get('/admin/delete', adminMiddleware,adminController.renderDeletePage);
-router.post('/admin/delete', adminMiddleware,adminController.deleteLevel);
+router.get('/admin/delete', adminMiddleware, adminController.renderDeletePage);
+router.post('/admin/delete', adminMiddleware, adminController.deleteLevel);
 
 
 module.exports = router;

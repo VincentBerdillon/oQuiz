@@ -67,4 +67,11 @@ Answer.hasOne(Question, {
   as: "question_it_validates"
 });
 
-module.exports = { User, Quiz, Question, Level, Tag, Answer };
+module.exports = {
+  User,
+  Quiz,
+  Question,
+  Level,
+  Tag,
+  Answer
+};

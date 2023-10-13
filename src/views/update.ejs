@@ -2,17 +2,17 @@
 
 <%- include('partials/adminNav') %>
 
-  <% if (locals.error) {%>
-    <div class="alert alert-danger" role="alert">
-      <%= error %>
-    </div>
-  <%}%>
+<% if (locals.error) {%>
+<div class="alert alert-danger" role="alert">
+  <%= error %>
+</div>
+<%}%>
 
   <% if (locals.validate) {%>
-    <div class="alert alert-success" role="alert">
-      <%=validate %>
-    </div>
-    <%}%>
+<div class="alert alert-success" role="alert">
+  <%=validate %>
+</div>
+<%}%>
 
   <form class="" method="POST" action="/admin/update">
     <br>
@@ -20,8 +20,8 @@
       <label class="form-label h4">Level à modifier</label>
       <select class="form-control mb-4" name="levelId">
         <% for( let level of allLevels) {%>
-          <option value="<%=level.id%>"><%=level.name%></option>
-        <%}%> 
+<option value="<%=level.id%>"><%=level.name%></option>
+<%}%> 
       </select>
       <label class="form-label h4" for="level">Nouveau nom pour le level sélectionné</label>
       <input class="form-control" type="text" id="level" name="levelName">

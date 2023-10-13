@@ -1,4 +1,7 @@
-const { Model, DataTypes } = require("sequelize");
+const {
+  Model,
+  DataTypes
+} = require("sequelize");
 const sequelize = require("../sequelize-client");
 
 class Question extends Model {}

@@ -1,4 +1,7 @@
-const { DataTypes, Model } = require("sequelize");
+const {
+  DataTypes,
+  Model
+} = require("sequelize");
 const sequelize = require("../sequelize-client");
 
 class Tag extends Model {}

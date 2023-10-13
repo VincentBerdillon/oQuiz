@@ -7,7 +7,8 @@ const express = require("express");
 const router = require("./src/router");
 const session = require("express-session");
 const cors = require("cors");
-const bodySanitizer = require("./src/middlewares/sanitizerMiddelware");
+const bodySanitizer = require("./src/middlewares/bodyMiddelware");
+const paramsSanitizer = require("./src/middlewares/paramsMiddleware");
 const rateLimit = require('express-rate-limit');
 
 // application express
@@ -22,25 +23,33 @@ app.use(express.static("public"));
 
 // bodyparser pour les requêtes POST
 
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({
+  extended: true
+}));
 
 // session utilisateur
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
-  cookie: { path: '/', httpOnly: true, secure: false, maxAge: null }
+  cookie: {
+    path: '/',
+    httpOnly: true,
+    secure: false,
+    maxAge: null
+  }
 }));
 
 // Sécurité
 app.use(cors("*"));
 app.use(bodySanitizer);
+app.use(paramsSanitizer);
 
 const limiter = rateLimit({
-	windowMs: 15 * 60 * 1000,
-	limit: 100,
-	standardHeaders: 'draft-7',
-	legacyHeaders: false,
+  windowMs: 15 * 60 * 1000,
+  limit: 100,
+  standardHeaders: 'draft-7',
+  legacyHeaders: false,
   message: "vous avez atteint le nombre de requêtes authorisées"
 })
 

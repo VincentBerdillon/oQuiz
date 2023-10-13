@@ -1,19 +1,27 @@
 const bcrypt = require('bcrypt');
 const validator = require("email-validator");
-const { Quiz, Tag, User } = require('../models/index');
+const {
+  Quiz,
+  Tag,
+  User
+} = require('../models/index');
 
 const mainController = {
 
   renderHomePage: async (_, res, next) => {
     try {
       const allQuizzes = await Quiz.findAll({
-        order: [['title', 'ASC']],
+        order: [
+          ['title', 'ASC']
+        ],
         include: ['author', 'tags'],
       });
       if (!allQuizzes) {
         return next();
       }
-      res.render("home", { allQuizzes });
+      res.render("home", {
+        allQuizzes
+      });
     } catch (error) {
       console.error(error);
       res.status(500).render('500');
@@ -25,14 +33,16 @@ const mainController = {
       const tagsQuiz = await Tag.findAll({
         include: ['quizzes'],
       });
-      res.render("tags", { tagsQuiz });
+      res.render("tags", {
+        tagsQuiz
+      });
     } catch (error) {
       console.error(error);
       res.status(500).render('500');
     }
   },
 
-  renderSignupPage: async (_, res) => {
+  renderSignupPage: async (req, res) => {
     try {
       res.render("signup");
     } catch (error) {
@@ -42,15 +52,23 @@ const mainController = {
   },
 
   addUser: async (req, res) => {
-    const {firstname, lastname, email, password, confirmation} = req.body;
+
+    const {
+      firstname,
+      lastname,
+      email,
+      password,
+      confirmation
+    } = req.body;
+
     try {
-      if(!firstname || !lastname || !email || !password){
-        res.status(404).render("signup", {
+      if (!firstname || !lastname || !email || !password || !confirmation) {
+        return res.status(404).render("signup", {
           error: "Toutes les informations ne sont pas remplies"
         });
       }
-      if(!validator.validate(email)){
-        res.status(404).render("signup", {
+      if (!validator.validate(email)) {
+        return res.status(404).render("signup", {
           error: "Cet e-mail n'est pas valide"
         });
       }
@@ -59,24 +77,35 @@ const mainController = {
           email: email
         }
       });
-      if (userFound){
-        res.status(404).render("signup",{
+      if (userFound) {
+        return res.status(404).render("signup", {
           error: "cet email est déjà utilisé"
         });
       }
+
       if (password != confirmation) {
-        res.status(404).render("signup",{
+        return res.status(404).render("signup", {
           error: "mot de passe et confirmation ne correspondent pas"
         });
       }
+
+      const passwordPattern = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[a-zA-Z!#$%&? "])[a-zA-Z0-9!#$%&?]{8,20}$/;
+      const passwordCheck = password.match(passwordPattern);
+      if (!passwordCheck) {
+        return res.status(404).render("signup", {
+          error: "le mot de passe ne correspond pas au format demandé"
+        });
+      }
+
       const hashedPassword = bcrypt.hashSync(password, 10);
       await User.create({
         firstname: firstname,
         lastname: lastname,
         email: email,
         password: hashedPassword,
-        role: 'membre'});
-      res.redirect('/');
+        role: 'membre'
+      });
+      return res.redirect('/');
     } catch (error) {
       console.error(error);
       res.status(500).render('500');
@@ -93,15 +122,19 @@ const mainController = {
   },
 
   logUser: async (req, res) => {
-    const { email, password } = req.body;
+    const {
+      email,
+      password
+    } = req.body;
     try {
       const userConnect = await User.findOne({
         where: {
           email: email,
-        }});
+        }
+      });
       const match = bcrypt.compareSync(password, userConnect.password);
-      if(!userConnect || !match){
-        return res.status(404).render("login",{
+      if (!userConnect || !match) {
+        return res.status(404).render("login", {
           error: "email ou mot de passe incorrect"
         });
       }
