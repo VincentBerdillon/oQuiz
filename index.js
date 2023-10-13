@@ -21,7 +21,6 @@ app.set("views", "./src/views");
 app.use(express.static("public"));
 
 // bodyparser pour les requêtes POST
-
 app.use(express.urlencoded({
   extended: true
 }));
@@ -50,8 +49,6 @@ const limiter = rateLimit({
   legacyHeaders: false,
   message: "vous avez atteint le nombre de requêtes authorisées"
 })
-
-// Apply the rate limiting middleware to all requests
 app.use(limiter)
 
 const userMiddleware = require("./src/middlewares/userMiddleware");
@@ -60,7 +57,7 @@ app.use(userMiddleware);
 //Router
 app.use(router);
 
-app.use((req, res) => {
+app.use((_, res) => {
   res.status(404).render("404");
 });
 

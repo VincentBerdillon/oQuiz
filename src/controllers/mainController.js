@@ -42,7 +42,7 @@ const mainController = {
     }
   },
 
-  renderSignupPage: async (req, res) => {
+  renderSignupPage: async (_, res) => {
     try {
       res.render("signup");
     } catch (error) {
