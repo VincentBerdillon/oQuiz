@@ -55,7 +55,7 @@ const userController = {
 
   renderScorePage: (req, res) => {
     try {
-      if (req.session.user ? .role === "membre" || req.session.user ? .role === "admin") {
+      if (req.session.user.role === "membre" || req.session.user.role === "admin") {
         return res.render("score");
       }
       res.redirect("/");

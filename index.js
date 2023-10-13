@@ -8,7 +8,6 @@ const router = require("./src/router");
 const session = require("express-session");
 const cors = require("cors");
 const bodySanitizer = require("./src/middlewares/bodyMiddelware");
-const paramsSanitizer = require("./src/middlewares/paramsMiddleware");
 const rateLimit = require('express-rate-limit');
 
 // application express
@@ -43,7 +42,6 @@ app.use(session({
 // Sécurité
 app.use(cors("*"));
 app.use(bodySanitizer);
-app.use(paramsSanitizer);
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -60,7 +58,6 @@ const userMiddleware = require("./src/middlewares/userMiddleware");
 app.use(userMiddleware);
 
 //Router
-
 app.use(router);
 
 app.use((req, res) => {
